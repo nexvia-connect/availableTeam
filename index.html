@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Names List</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <style>
+  <style>   
     .name-list {
       list-style-type: none;
       padding: 0;
@@ -43,7 +43,7 @@
         data.names.forEach(name => {
           const li = document.createElement('li');
           li.className = 'name-item';
-          li.innerHTML = `<span class="material-icons">check_box_outline_blank</span>${name}`;
+          li.innerHTML = `<span class="material-icons">check_circle</span>${name}`;
           nameList.appendChild(li);
         });
       } catch (error) {
