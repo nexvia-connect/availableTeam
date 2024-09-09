@@ -1,8 +1,6 @@
 [
-{"name":"Melissa","status":"Inactive"},
-{"name":"Fräntz","status":"Active"},
-{"name":"Victor","status":"Active"},
-{"name":"Mounir","status":"Inactive"},
-{"name":"Xavier","status":"Inactive"},
+{"name":"Melissa","status":"Active"},
+{"name":"Mounir","status":"Active"},
+{"name":"Xavier","status":"Active"},
 {"name":"Anas","status":"Active"}
 ]
