@@ -1,0 +1,27 @@
+name: Auto Commit
+
+on:
+  push:
+    paths:
+      - 'names.json'
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run a script to update index.html
+        run: |
+          # Your script or command to update index.html goes here
+          # For example, you might have a script named update-index.sh
+          ./update-index.sh
+
+      - name: Commit and push changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'index.html'
+          message: 'Update index.html due to changes in names.json'
+          author_name: 'github-actions'
+          author_email: 'actions@github.com'
