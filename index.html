@@ -82,10 +82,19 @@
       -webkit-font-feature-settings: 'liga';
       -webkit-font-smoothing: antialiased;
       font-size: 9pt;
-      color: #378b29;
       margin-right: 10px;
       position: relative;
       top: 2px;
+    }
+
+    /* Active Icon */
+    .active-icon {
+      color: #378b29;
+    }
+
+    /* Inactive Icon */
+    .inactive-icon {
+      color: #999;
     }
 
     /* Progress Bar Container */
@@ -142,13 +151,13 @@
           const li = document.createElement('li');
           li.className = 'name-item';
 
-          // Set name opacity based on status
+          // Set name opacity and icon color based on status
           if (person.status === 'Active') {
             li.style.opacity = '1';
-            li.innerHTML = `<span class="material-icons">check_circle</span>${person.name}`;
+            li.innerHTML = `<span class="material-icons active-icon">check_circle</span>${person.name}`;
           } else {
             li.style.opacity = '0.5';
-            li.innerHTML = `<span class="material-icons">cancel</span>${person.name}`;
+            li.innerHTML = `<span class="material-icons inactive-icon">cancel</span>${person.name}`;
           }
 
           nameList.appendChild(li);
