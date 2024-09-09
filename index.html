@@ -92,42 +92,50 @@
   <h1>Current support team<span class="count" id="countOfNames"></span></h1>
   <ul class="name-list" id="nameList"></ul>
 
-  <script>
-  // Fetch the data from names.json
-  async function fetchNames() {
-    try {
-      const response = await fetch('https://nexvia-connect.github.io/availableTeam/names.json');
-      const data = await response.json();
-
-      // Get the UL element
-      const nameList = document.getElementById('nameList');
-
-      // Clear the list
-      nameList.innerHTML = '';
-
-      // Loop through each person and create list items
-      data.forEach(person => {
-        const li = document.createElement('li');
-        li.className = 'name-item';
-
-        // Set name opacity based on status
-        if (person.status === 'Active') {
-          li.style.opacity = '1';
-          li.innerHTML = `<span class="material-icons">check_box_outline_blank</span>${person.name}`;
-        } else {
-          li.style.opacity = '0.5';
-          li.innerHTML = `<span class="material-icons">cancel</span>${person.name}`;
+      <script>
+      // Fetch the data from names.json
+      async function fetchNames() {
+        try {
+          const response = await fetch('https://nexvia-connect.github.io/availableTeam/names.json');
+          const data = await response.json();
+    
+          // Get the UL element
+          const nameList = document.getElementById('nameList');
+    
+          // Clear the list
+          nameList.innerHTML = '';
+    
+          // Loop through each person and create list items
+          data.forEach(person => {
+            const li = document.createElement('li');
+            li.className = 'name-item';
+    
+            // Set name opacity based on status
+            if (person.status === 'Active') {
+              li.style.opacity = '1';
+              li.innerHTML = `<span class="material-icons">check_box_outline_blank</span>${person.name}`;
+            } else {
+              li.style.opacity = '0.5';
+              li.innerHTML = `<span class="material-icons">cancel</span>${person.name}`;
+            }
+    
+            nameList.appendChild(li);
+          });
+    
+          // Update the count of names
+          document.getElementById('countOfNames').innerText = `(${data.length})`;
+    
+        } catch (error) {
+          console.error('Error fetching names:', error);
         }
+      }
+    
+      // Fetch the names on page load
+      fetchNames();
+    
+      // Automatically refresh the names every 30 seconds
+      setInterval(fetchNames, 30000); // 30,000 milliseconds = 30 seconds
+    </script>
 
-        nameList.appendChild(li);
-      });
-    } catch (error) {
-      console.error('Error fetching names:', error);
-    }
-  }
-
-  // Fetch the names on page load
-  fetchNames();
-</script>
 </body>
 </html>
