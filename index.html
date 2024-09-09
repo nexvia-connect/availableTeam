@@ -20,7 +20,6 @@
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       font-family: "Open Sans", sans-serif;
-      font-weight: bold;
       list-style: none;
       line-height: 1.6;
       word-break: break-word;
@@ -51,7 +50,7 @@
     .name-item {
       display: flex;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 5px; /* Reduced margin */
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       font-family: "Open Sans", sans-serif;
@@ -61,8 +60,7 @@
       line-height: 1;
       box-sizing: border-box;
       font-size: 10pt;
-      animation: expand 1s ease-out;
-      overflow: hidden;
+      padding-bottom: 5px; /* Padding between items */
     }
 
     /* Material Icons */
@@ -84,25 +82,51 @@
       -webkit-font-feature-settings: 'liga';
       -webkit-font-smoothing: antialiased;
       font-size: 9pt;
-      color: #378b29;
       margin-right: 10px;
       position: relative;
       top: 2px;
     }
 
-    /* Expand Animation */
-    @keyframes expand {
-      from {
-        width: 0%;
-      }
-      to {
-        width: 100%;
-      }
+    /* Active Icon */
+    .active-icon {
+      color: #378b29;
+    }
+
+    /* Inactive Icon */
+    .inactive-icon {
+      color: #999;
+    }
+
+    /* Progress Bar Container */
+    .progress-bar-container {
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 15px;
+      height: 5px;
+      margin: 10px 0; /* Space around the progress bar */
+      position: relative;
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      height: 100%;
+      border-radius: 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #378b29;
+      transition: width 0.3s ease;
     }
   </style>
 </head>
 <body>
-  <h1>Current support team<span class="count" id="countOfNames"></span></h1>
+  <h1>Current support team <span class="count" id="countOfNames"></span></h1>
+  
+  <!-- Progress Bar Container -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
   <ul class="name-list" id="nameList"></ul>
 
   <script>
@@ -112,23 +136,44 @@
         const response = await fetch('https://nexvia-connect.github.io/availableTeam/names.json');
         const data = await response.json();
 
-        // Get the UL element and count span
+        // Get the UL element
         const nameList = document.getElementById('nameList');
-        const countElement = document.getElementById('countOfNames');
 
         // Clear the list
         nameList.innerHTML = '';
 
-        // Add the count of names to the header
-        countElement.innerHTML = `(${data.names.length})`;
+        // Count active names
+        const activeNames = data.filter(person => person.status === 'Active').length;
+        const totalNames = data.length;
 
-        // Loop through the names and create list items
-        data.names.forEach(name => {
+        // Loop through each person and create list items
+        data.forEach(person => {
           const li = document.createElement('li');
           li.className = 'name-item';
-          li.innerHTML = `<span class="material-icons">check_circle</span>${name}`;
+
+          // Set name opacity and icon color based on status
+          if (person.status === 'Active') {
+            li.style.opacity = '1';
+            li.innerHTML = `<span class="material-icons active-icon">check_circle</span>${person.name}`;
+          } else {
+            li.style.opacity = '0.5';
+            li.innerHTML = `<span class="material-icons inactive-icon">cancel</span>${person.name}`;
+          }
+
           nameList.appendChild(li);
         });
+
+        // Update the count of names
+        document.getElementById('countOfNames').innerText = `${activeNames} / ${totalNames}`;
+
+        // Update the progress bar
+        const progressBar = document.getElementById('progressBar');
+        const percentage = (activeNames / totalNames) * 100;
+        progressBar.style.width = `${percentage}%`;
+
+        // Change the color based on percentage
+        progressBar.style.backgroundColor = `rgb(${255 - (percentage * 1.5)}, ${percentage * 2.55}, 41)`;
+
       } catch (error) {
         console.error('Error fetching names:', error);
       }
@@ -136,6 +181,9 @@
 
     // Fetch the names on page load
     fetchNames();
+
+    // Automatically refresh the names every 30 seconds
+    setInterval(fetchNames, 30000); // 30,000 milliseconds = 30 seconds
   </script>
 </body>
 </html>
