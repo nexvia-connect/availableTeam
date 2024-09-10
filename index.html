@@ -61,17 +61,22 @@
       line-height: 1;
       box-sizing: border-box;
       font-size: 10pt;
-      padding-bottom: 2px; /* Padding between items */
-      transition: background-color 0.3s, border-radius 0.3s;
+      padding: 5px 0; /* Padding between items */
+      position: relative; /* Required for pseudo element positioning */
       cursor: pointer;
+      transition: background-color 0.3s ease-in-out, border-radius 0.3s ease-in-out;
     }
-
-    /* Mouse-over effect */
-    .name-item:hover {
-      background-color: #eee;
-      border-radius: 5px;
-      padding: 10px 0;
-      margin: -10px 0;
+    
+    .name-item:hover::before {
+          content: "";
+          position: absolute;
+          top: -5px;
+          bottom: -5px;
+          left: 0;
+          right: 0;
+          background-color: #eee;
+          border-radius: 5px;
+          z-index: -1;
     }
 
     /* Material Icons */
