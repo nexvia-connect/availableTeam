@@ -197,19 +197,19 @@
         }
     
         // Change the color based on percentage
-        let color;
-    
-        if (percentage <= 20) {
-          color = '#fc3164'; // 0% - 20%
-        } else if (percentage <= 40) {
-          color = '#dc5827'; // 20% - 40%
-        } else if (percentage <= 60) {
-          color = '#ac7400'; // 40% - 60%
-        } else if (percentage <= 80) {
-          color = '#768300'; // 60% - 80%
-        } else {
-          color = '#388929'; // 80% - 100%
-        }
+        const colors = [
+          '#da0808', // 0% - 12.5%
+          '#cd400e', // 12.5% - 25%
+          '#c16f13', // 25% - 37.5%
+          '#b59418', // 37.5% - 50%
+          '#a2a91d', // 50% - 62.5%
+          '#779e21', // 62.5% - 75%
+          '#549325', // 75% - 87.5%
+          '#388929'  // 87.5% - 100%
+        ];
+        
+        const index = Math.min(Math.floor(percentage / 12.5), colors.length - 1);
+        const color = colors[index];
     
         progressBar.style.backgroundColor = color;
     
