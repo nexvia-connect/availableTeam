@@ -111,14 +111,14 @@
 
     /* Progress Bar */
     .progress-bar {
-        height: 100%;
-        border-radius: 15px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: #378b29;
-        transition: width 0.3s ease, background-color 0.3s ease;
-      }
+      height: 100%;
+      border-radius: 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #378b29;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
       
       /* Initial animation for the first load */
       @keyframes initialExpand {
@@ -179,16 +179,12 @@
           // Update the count of names
           document.getElementById('countOfNames').innerText = `${activeNames} / ${totalNames}`;
       
-          // Update the progress bar
+          // Update the progress bar width based on active users percentage
           const progressBar = document.getElementById('progressBar');
           const percentage = (activeNames / totalNames) * 100;
       
-          // Add the initial animation for the first time
-          if (!progressBar.style.width) {
-            progressBar.style.animation = 'initialExpand 1s ease-in-out forwards';
-          } else {
-            progressBar.style.width = `${percentage}%`;
-          }
+          // Set the width of the progress bar to the percentage
+          progressBar.style.width = `${percentage}%`;
       
           // Change the color based on percentage
           let color;
