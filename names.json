@@ -1,6 +1,6 @@
 [
 {"name":"melissa","status":"Inactive","slackId":"UU5F0BQBZ"},
 {"name":"xavier","status":"Active","slackId":"U07KBSAR52L"},
-{"name":"chara","status":"Active","slackId":"U08HQ4MQHN1"},
-{"name":"rachel","status":"Active"}
+{"name":"chara","status":"Inactive","slackId":"U08HQ4MQHN1"},
+{"name":"rachel","status":"Active","slackId":null}
 ]
